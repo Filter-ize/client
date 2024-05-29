@@ -13,7 +13,7 @@ const filterSlice = createSlice({
             const tempEmployees = employees.filter(
                     (employee) =>
                     employee.name && employee.name.toLowerCase().includes(search.toLowerCase()) ||
-                    employee.category && employee.category.toLowerCase().includes(search.toLowerCase())
+                    employee.specialization && employee.specialization.toLowerCase().includes(search.toLowerCase())
                 );
 
                 state.filteredEmployees = tempEmployees;
