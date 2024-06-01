@@ -12,7 +12,7 @@ const SideBarItem = ({ item, isOpen }) => {
     return (
       <div
         className={
-          expandMenu ? "sidebar-item s-parent open" : "sidebar-item s-parent"
+          expandMenu ? "sidebar-item open" : "sidebar-item"
         }
       >
         <div className="sidebar-title">
@@ -49,7 +49,7 @@ const SideBarItem = ({ item, isOpen }) => {
   } else {
     return (
       <NavLink to={item.path} className={activeLink}>
-        <div className="sidebar-item s-parent">
+        <div className="sidebar-item">
           <div className="sidebar-title">
             <span>
               {item.icon && <div className="icon">{item.icon}</div>}

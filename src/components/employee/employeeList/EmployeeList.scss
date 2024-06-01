@@ -1,7 +1,7 @@
 .product-list{
-    color: #333;
+    color: var(--color-white);
     .table {
-        padding: 5px;
+        padding: 0.5rem;
         width: 100%;
         overflow: auto;
 
@@ -14,21 +14,27 @@
             border-collapse: collapse;
             width: 100%;
             font-size: 1.4rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            outline: none;
+            border: 0;
             
             thead{
-                border-top: 2px solid var(--light-blue);
-                border-bottom: 2px solid var(--light-blue);
+                // border-top: 2px solid var(--light-blue);
+                // border-bottom: 2px solid var(--light-blue);
+                background: var(--color-background2);
             }
             
             th {
-                border: 1px solid #eee;
+                background: var(--color-background2);
+                // border: 1px solid #eee;
             }
             
             th, 
             td{
-                vertical-align: top;
+                vertical-align: middle;
                 text-align: left;
-                padding: 8px;
+                padding: 0.8rem 1rem;
                 
                 &.icons {
                     display: flex;
@@ -44,18 +50,22 @@
             }
             
             tr{
-                border-bottom: 1px solid #ccc;
+                // border-bottom: 1px solid #ccc;
+                background: var(--color-white) ;
             }
             
-            tr:nth-child(even){
-                background-color: #fff;
-            }
-            tbody{
-                tr:hover {
-                    cursor: pointer;
-                    background-color: rgba(31, 147, 255, 0.3);
+            // tr:nth-child(even){
+                //     background-color: #fff;
+                // }
+                tbody{
+                    color: var(--color-background2);
+                    tr:hover {
+                        color: var(--color-white) ;
+                        cursor: pointer;
+                        background-color: var(--color-background);
                 }
             }
         }
-    }
+    }    
 }
+

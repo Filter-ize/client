@@ -1,32 +1,50 @@
 .add-product{
     margin-bottom: 5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     .card{
         width: 100%;
         max-width: 500px;
+        margin: auto;
         padding: 1rem;
+        border: none;
+        background: var(--color-background2);
     }
     form{
         label{
             display: block;
             font-size: 1.4rem;
             font-weight: 500;
-            color: var(--color-dark)
+            color: var(--color-white2)
         }
         input[type="text"],
         input[type="number"],
         input[type="file"],
         input[type="email"],
         select,
-        input[type="password"]{
+        input[type="password"],
+        .ck-editor__editable {
             display: block;
             font-size: 1.6rem;
             font-weight: 300;
             padding: 1rem;
             margin: 1rem auto;
             width: 100%;
-            border: 1px solid #777;
+            border: 1px solid var(--color-background2);
+            background: var(--color-background);
+            color: var(--color-white);
             border-radius: 3px;
             outline: none;
+        }
+        .ck-editor__editable{
+            color: var(--color-white);
+            background: var(--color-background);
+        }
+        .ck.ck-content {
+            background-color: var(--color-background) !important;
+            color: var(--color-white) !important;
+            border: none;
         }
     }
 }
@@ -39,17 +57,22 @@
 .image-preview{
     width: 100%;
     height: 100%;
-    // max-height: 280px;
+    max-height: 400px;
     background: var(--dark-blue);
     padding: 1rem;
     border-radius: 3px;
     overflow: hidden;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
     //display: none;
     transition: all 0.3s;
 }
 
 .image-preview img{
     width: 100%;
+    max-height: 100%;
+    // object-fit: cover;
 }
 
 .image-show{

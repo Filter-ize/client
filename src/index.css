@@ -5,21 +5,25 @@
   --header-height: 45px;
 
   --font-family: "Poppins", sans-serif;
-  --dark-blue: #0a1930;
+  --dark-blue: #1c1e36;
   --light-blue: #1f93ff;
 
-  --color-white: #fff;
+  --color-white: #E5E9EB;
+  --color-white2: #B7B9BD;
   --color-dark: #333;
+  --color-background: #1F2034;
+  --color-background2: #232543;
+  --color-active: #1c1e36;
 
   --color-grey: #eee;
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
   --color-purple: #9d0191;
-  --color-orange: #ff7722;
+  --color-orange: #B45E12;
 
   --color-primary: #007bff;
-  --color-success: #28a745;
-  --color-danger: orangered;
+  --color-success: #26B97C;
+  --color-danger: #B45E12;
 }
 
 * {
@@ -35,7 +39,7 @@ html {
 
 body {
   font-family: var(--font-family);
-  background: #eee;
+  background: #1c1e36;
 }
 
 section {
@@ -136,7 +140,7 @@ h3,
 h4 {
   font-weight: 500;
   line-height: 1.2;
-  color: var(--color-dark);
+  color: var(--color-white);
   margin-bottom: 1rem;
 }
 h1 {
@@ -156,7 +160,7 @@ p {
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.3;
-  color: var(--color-dark);
+  color: var(--color-white);
 }
 .--text-xl {
   font-size: 4.5rem;
@@ -293,20 +297,21 @@ p {
 
 .--btn {
   font-size: 1.6rem;
-  font-weight: 400;
+  font-weight: 500;
   padding: 6px 8px;
-  margin: 0 5px 0 0;
+  margin: 0 5px 3px 0;
   border: 1px solid transparent;
   border-radius: 3px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   transition: all 0.3s;
 }
 
 .--btn:hover {
-  transform: translateY(-2px);
+  transform: scale(1.1);
 }
 
 .--btn-lg {
@@ -319,7 +324,7 @@ p {
 
 .--btn-primary {
   color: #fff;
-  background: #007bff;
+  background: var(--color-orange);
 }
 .--btn-secondary {
   color: #fff;
@@ -327,8 +332,8 @@ p {
   background: transparent;
 }
 .--btn-danger {
-  color: #fff;
-  background: orangered;
+  color: var(--color-white);
+  background: var(--color-danger);
 }
 
 .--btn-success {
@@ -460,6 +465,12 @@ ul {
   list-style: none;
 }
 
+hr{
+  border: none;
+  height: 2px;
+  background: var(--color-background2);
+}
+
 a:hover {
   /* color: var(--color-dark); */
   font-size: 1.5rem;
@@ -476,6 +487,7 @@ a:hover {
   align-items: center;
   margin: 2rem 0;
   font-size: 1rem;
+  color: var(--color-white)
 }
 
 .pagination .page-num {
@@ -483,17 +495,75 @@ a:hover {
   cursor: pointer;
   border-radius: 3px;
   font-weight: normal;
-  color: #333;
+  color: var(--color-white);
   border: 1px solid #333;
   margin: 2px;
 }
 
 .pagination .page-num:hover {
   color: #fff;
-  background-color: var(--light-blue);
+  background-color: var(--color-orange);
+  animation: none;
+  transition: none;
+  transition: scale(1);
 }
 .activePage {
   color: #fff;
-  background-color: var(--light-blue);
+  background-color: var(--color-orange);
   height: 100%;
+  animation: none;
+  transition: scale(1);
+}
+
+
+.react-confirm-alert-overlay {
+  background: #1f2034b4;
+}
+
+.react-confirm-alert-body {
+  background: var(--color-background);
+  color: var(--color-white);
+}
+
+.react-confirm-alert-button-group button {
+  background: var(--color-orange);
+  color: #fff;
+}
+
+.react-confirm-alert-button-group button:hover {
+  background: var(--color-orange);
+}
+
+.Toastify__toast {
+  background: #333;
+  color: #fff;
+}
+
+/* Cambia el color de fondo y el color del texto del toast de éxito */
+.Toastify__toast--success {
+  background: var(--color-background2);
+  color: #fff;
+}
+
+/* Cambia el color de fondo y el color del texto del toast de error */
+.Toastify__toast--error {
+  background: var(--color-background2);
+  color: #fff;
+}
+
+/* Cambia el color de fondo y el color del texto del toast de información */
+.Toastify__toast--info {
+  background: var(--color-background2);
+  color: #fff;
+}
+
+/* Cambia el color de fondo y el color del texto del toast de advertencia */
+.Toastify__toast--warning {
+  background: var(--color-background2);
+  color: #212529;
+}
+
+/* Cambia el color de fondo del botón de cierre */
+.Toastify__close-button {
+  color: #fff;
 }

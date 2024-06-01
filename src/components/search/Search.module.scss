@@ -1,13 +1,18 @@
 .search{
     margin: 5px 0;
     position: relative;
-    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
 
     .icon{
-        position: absolute;
-        top: 50%;
-        left: 1rem;
-        transform: translateY(-50%);
+        // position: absolute;
+        // top: 50%;
+        // left: 1rem;
+        // transform: translateY(-50%);
+        color: var(--color-white);
+        transform: scale(1.58);
     }
 
     input[type="text"]{
@@ -21,5 +26,8 @@
         border: 1px solid #777;
         border-radius: 3px;
         outline: none;
+        background-color: var(--color-background2);
+        border: 1px solid #1c1e36;
+        color: var(--color-white)
     }
 }

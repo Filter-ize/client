@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SpinnerImg } from "../../loader/Loader.jsx";
+import Loader from "../../loader/Loader.jsx";
 import "./EmployeeList.scss";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
@@ -93,7 +93,7 @@ const EmployeeList = ({ employees, isLoading }) => {
           </span>
         </div>
 
-        {isLoading && <SpinnerImg />}
+        {isLoading && <Loader />}
 
         <div className="table">
           {!isLoading && employees.length === 0 ? (
@@ -102,7 +102,7 @@ const EmployeeList = ({ employees, isLoading }) => {
             <table>
               <thead>
                 <tr>
-                  <th>s/n</th>
+                  <th>N°</th>
                   <th>Nombre</th>
                   <th>Correo</th>
                   <th>Profesión</th>
@@ -125,19 +125,19 @@ const EmployeeList = ({ employees, isLoading }) => {
                       <td className="icons">
                         <span>
                           <Link to={`/employee-detail/${_id}`}>
-                            <AiOutlineEye size={25} color={"purple"} />
+                            <AiOutlineEye size={25} color={"#2179BD"} />
                           </Link>
                         </span>
                         <span>
                           <Link to={`/edit-employee/${_id}`}>
-                            <FaEdit size={20} color={"green"} />
+                            <FaEdit size={20} color={"#54AB6A"} />
                           </Link>
                         </span>
                         <span>
                           <Link>
                             <FaTrashAlt
                               size={20}
-                              color={"red"}
+                              color={"#E87063"}
                               onClick={() => {
                                 confirmDelete(_id);
                               }}

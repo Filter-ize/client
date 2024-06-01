@@ -1,12 +1,20 @@
 .contact{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     .card{
+        width: 50%;
         padding: 1rem;
-        border: 1px solid #ccc;
+        border: none;
+        background-color: var(--color-background2);
+        margin: 0 auto;
     }
 
     .card2{
+        width: 50%;
         padding: 2rem;
-        background-color: var(--light-blue);
+        margin: 0 auto;
+        background-color: var(--color-success);
         color: #fff;
         h3,
         p{
@@ -30,12 +38,11 @@
 
 .section{
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
 
     form{
-        width: 500px;
+        // width: 500px;
         max-width: 100%;
-        margin-right: 1rem;    
         margin-bottom: 1rem;
         label{
             display: block;
@@ -52,10 +59,12 @@
             display: block;
             font-size: 1.6rem;
             font-weight: 300;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             margin: 1rem auto;
             width: 100%;
-            border: 1px solid #777;
+            border: none;
+            color: var(--color-white);
+            background: var(--color-background);
             border-radius: 3px;
             outline: none;
         }

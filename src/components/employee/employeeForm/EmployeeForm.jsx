@@ -21,7 +21,7 @@ const EmployeeForm = ({
         <form onSubmit={saveEmployee}>
           <Card cardClass={"group"}>
             <label>Imagen de Perfil</label>
-            <code className="--color-dark">
+            <code className="--color-white2">
               Formatos Soportados: jpg, jpeg, png
             </code>
             <input
@@ -82,7 +82,7 @@ const EmployeeForm = ({
           />
           <div className="--my">
             <button type="submit" className="--btn --btn-primary">
-                Guardar Empleado
+              Guardar Empleado
             </button>
           </div>
         </form>

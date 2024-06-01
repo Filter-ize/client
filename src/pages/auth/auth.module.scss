@@ -1,5 +1,6 @@
 .auth{
-    min-height: 80vh;
+    background-color: #1c1e36;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,37 +9,72 @@
         animation: slide-down 0.5s ease;
     }
 
+    span{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    p{
+        color: #E5E9EB;
+        text-align: center;
+    }
+
+    a{
+        color: var(--color-orange);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
     .form{
         width: 38rem;
         padding: 1.5rem;
         animation: slide-up 0.5s ease;
-        background-color: #fff;
+        background-color: #232543;
         h2{
-            color: var(--color-danger);
+            // color: var(--color-danger);
+            color: var(--color-orange);
             text-align: center;
         }
         form{
+            
             input[type="text"],
             input[type="email"],
             input[type="password"]{
                 display: block;
                 font-size: 1.6rem;
                 font-weight: 300;
-                padding: 1rem;
-                margin: 1rem auto;
+                padding: 1.5rem;
+                margin: 1.8rem auto;
                 width: 100%;
-                border: 1px solid #ccc;
-                border-bottom: 3px solid #ccc;
+                background-color: #1F2034;
+                border: 1px solid #1c1e36;
+                border-bottom: 3px solid #3E4054;
                 border-radius: 3px;
                 outline: none;
-
+                color: #E5E9EB;  
+                
+                &:-webkit-autofill {
+                    -webkit-text-fill-color: #E5E9EB;
+                    -webkit-box-shadow: 0 0 0px 1000px #1F2034 inset;
+                    transition: background-color 5000000s ease-in-out 0s;
+                }
+                
+                &:focus-autofill{
+                    outline: none;
+                    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+                    background-color: #1F2034;
+                    border-bottom: 3px solid #55c57a;
+                }
                 &:focus{
                     outline: none;
                     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+                    background-color: #1F2034;
                     border-bottom: 3px solid #55c57a;
                 }
 
                 &:focus:invalid{
+                    background-color: #1F2034;
                     border-bottom: 3px solid #ff7730;
                 }
             }
@@ -46,6 +82,27 @@
                 display: flex;
                 justify-content: space-between;
                 margin: 5px 0;
+            }
+
+            button{
+                background:var(--color-orange);
+                color: #E5E9EB;
+                width: 100%;
+                margin: 1.8rem 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.6rem;
+                font-weight: 600;
+                padding: 1rem;
+                border-radius: 3px;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+
+            button:hover{
+                background:#a1540f;
+                // color: #1F2034;
             }
 
             p{

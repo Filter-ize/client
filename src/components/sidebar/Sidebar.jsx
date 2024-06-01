@@ -17,11 +17,11 @@ const Sidebar = ({ children }) => {
 
   return (
     <div className="layout">
-      <div className="sidebar" style={{ width: isOpen ? "230px" : "60px" }}>
+      <div className="sidebar" style={{ width: isOpen ? "270px" : "60px" }}>
         <div className="top_section">
           <div className="logo" style={{ display: isOpen ? "block" : "none" }}>
             <AiFillCodeSandboxCircle
-              size={35}
+              size={40}
               style={{ cursor: "pointer" }}
               onClick={goHome}
             />
@@ -41,7 +41,7 @@ const Sidebar = ({ children }) => {
 
       <main
         style={{
-          paddingLeft: isOpen ? "230px" : "60px",
+          paddingLeft: isOpen ? "270px" : "60px",
           transition: "all .5s",
         }}
       >

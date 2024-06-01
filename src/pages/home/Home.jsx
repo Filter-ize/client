@@ -13,7 +13,7 @@ const Home = () => {
     <div className="home">
       <nav className="container --flex-between">
         <div className="logo">
-          <AiFillCodeSandboxCircle size={35} />
+          <AiFillCodeSandboxCircle size={50} />
         </div>
 
         <ul className="home-links">
@@ -41,24 +41,24 @@ const Home = () => {
       {/* Hero Section */}
       <section className="container hero">
         <div className="hero-text">
-            <h2>La Solución a tus Necesidades de Organización</h2>
-            <p>
-                Organiza tus tareas, proyectos y metas de manera sencilla y
-                eficiente.
-            </p>
-            <div className="hero-buttons">
-                <button className="--btn --btn-secondary">
-                    <Link to='/dashboard'>Prueba Gratis 1 Mes</Link>
-                </button>
-            </div>
+          <h2>La Solución a tus Necesidades de Organización</h2>
+          <p>
+            Organiza tus tareas, proyectos y metas de manera sencilla y
+            eficiente.
+          </p>
         </div>
-        <div className="--flex-start">
-            <NumberText number='' />
+        <div className="hero-buttons">
+          <button className="--btn">
+            <Link to="/dashboard">Prueba Gratis 1 Mes</Link>
+          </button>
         </div>
+        {/* <div className="--flex-start">
+          <NumberText number="" />
+        </div> */}
 
-        <div className="hero-image">
+        {/* <div className="hero-image">
             <img src={heroImg} alt="Hero" />
-        </div>
+        </div> */}
       </section>
     </div>
   );

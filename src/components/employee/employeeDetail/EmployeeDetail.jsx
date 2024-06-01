@@ -5,7 +5,7 @@ import useRedirectLoggedOutUser from "../../../customHook/useRedirectLoggedOutUs
 import { selectIsLoggedIn } from "../../../redux/features/auth/authSlice";
 import { getEmployee } from "../../../redux/features/employee/employeeSlice";
 import Card from "../../card/Card";
-import { SpinnerImg } from "../../loader/Loader";
+import Loader from "../../loader/Loader";
 import "./EmployeeDetail.scss";
 import DOMPurify from "dompurify";
 
@@ -33,7 +33,7 @@ const EmployeeDetail = () => {
     <div className="product-detail">
       <h3 className="--mt">Detalles del Empleado</h3>
       <Card cardClass="card">
-        {isLoading && <SpinnerImg />}
+        {isLoading && <Loader />}
         {employee && (
           <div className="detail">
             <Card cardClass="group">
@@ -44,6 +44,8 @@ const EmployeeDetail = () => {
               )}
             </Card>
             <hr />
+            <div className="text-detail">
+
             <h4>
               <span className="badge">Nombre: </span> &nbsp; {employee.name}
             </h4>
@@ -63,19 +65,20 @@ const EmployeeDetail = () => {
               }}
             ></div>
             <hr />
-            <code className="--color-dark">
+            <code className="--color-white2">
               Created on:{" "}
               {employee && employee.createdAt
                 ? employee.createdAt.toLocaleString("en-US")
                 : "N/A"}
             </code>
             <br />
-            <code className="--color-dark">
+            <code className="--color-white2">
               Last Updated:{" "}
               {employee && employee.updatedAt
                 ? employee.updatedAt.toLocaleString("en-US")
                 : "N/A"}
             </code>
+            </div>
           </div>
         )}
       </Card>

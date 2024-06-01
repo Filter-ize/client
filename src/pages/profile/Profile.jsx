@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "../../components/card/Card";
-import { SpinnerImg } from "../../components/loader/Loader";
+import Loader from "../../components/loader/Loader";
 import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
 import { SET_NAME, SET_USER } from "../../redux/features/auth/authSlice";
 import { getUser } from "../../services/authService";
@@ -32,7 +32,7 @@ const Profile = () => {
 
   return (
     <div className="profile --my2">
-      {isLoading && <SpinnerImg />}
+      {isLoading && <Loader />}
       <>
         {!isLoading && profile === null ? (
           <p>Algo salió mal, por favor recarga la página</p>

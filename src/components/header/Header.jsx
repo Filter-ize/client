@@ -22,7 +22,7 @@ const Header = () => {
           <span className="--fw-thin">Bienvenido, </span>
           <span className="--color-danger">{name}</span>
         </h3>
-        <button onClick={logout} className="--btn -btn-danger">
+        <button onClick={logout} className="--btn --btn-danger">
           Cerrar Sesión
         </button>
       </div>
