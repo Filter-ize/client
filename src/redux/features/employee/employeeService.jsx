@@ -25,6 +25,7 @@ export const deleteEmployee = async (id) => {
 //Get an Employee
 export const getEmployee = async (id) => {
     const response = await axios.get(API_URL + id);
+    // console.log(response.data)
     return response.data;
 };
 
@@ -34,12 +35,42 @@ export const updateEmployee = async (id, formData) => {
     return response.data;
 };
 
+// Get all documents of an employee
+export const getDocuments = async (employeeId) => {
+    const response = await axios.get(`${API_URL}${employeeId}/documents`);
+    // console.log(response.data)
+    // console.log(employeeId)
+    return response.data;
+  };
+  
+  // Get a specific document of an employee
+  export const getDocument = async (employeeId, documentId) => {
+    const response = await axios.get(`${API_URL}${employeeId}/documents/${documentId}`);
+    return response.data;
+  };
+  
+  // Update a document of an employee
+  export const updateDocument = async (employeeId, documentId, formData) => {
+    const response = await axios.put(`${API_URL}${employeeId}/documents/${documentId}`, formData);
+    return response.data;
+  };
+  
+  // Delete a document of an employee
+  export const deleteDocument = async (employeeId, documentId) => {
+    const response = await axios.delete(`${API_URL}${employeeId}/documents/${documentId}`);
+    return response.data;
+  };
+
 const employeeService = { 
     createEmployee, 
     getAllEmployees, 
     deleteEmployee, 
     getEmployee, 
-    updateEmployee 
+    updateEmployee,
+    getDocuments,
+    getDocument,
+    updateDocument,
+    deleteDocument,
 };
 
 export default employeeService;

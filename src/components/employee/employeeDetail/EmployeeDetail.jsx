@@ -8,6 +8,7 @@ import Card from "../../card/Card";
 import Loader from "../../loader/Loader";
 import "./EmployeeDetail.scss";
 import DOMPurify from "dompurify";
+import DocumentList from "../../documentList/DocumentList";
 
 const EmployeeDetail = () => {
   useRedirectLoggedOutUser("/login");
@@ -82,6 +83,7 @@ const EmployeeDetail = () => {
           </div>
         )}
       </Card>
+      <DocumentList employeeId={id} />
     </div>
   );
 };
