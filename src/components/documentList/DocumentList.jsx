@@ -179,18 +179,18 @@ const DocumentList = ({ employeeId }) => {
                     <td>{new Date(document.endDate).toLocaleDateString()}</td>
                     <td>{document.totalTime}</td>
                     <td className="icons">
-                      <span>
+                      {/* <span>
                         <Link
                           to={`/employee-detail/${employeeId}/document-detail/${document._id}`}
                         >
                           <AiOutlineEye size={25} color={"#2179BD"} />
                         </Link>
-                      </span>
-                      <span>
+                      </span> */}
+                      {/* <span>
                         <Link to={`/edit-document/${document._id}`}>
                           <FaEdit size={20} color={"#54AB6A"} />
                         </Link>
-                      </span>
+                      </span> */}
                       <span>
                         <FaTrashAlt
                           size={20}
@@ -201,7 +201,7 @@ const DocumentList = ({ employeeId }) => {
                         />
                       </span>
                       <span>
-                        <FaDownload
+                        <AiOutlineEye
                           size={20}
                           color={"#3f3f3f"}
                           onClick={() => handleDownload(document._id)}
