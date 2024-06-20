@@ -20,6 +20,9 @@ import EditEmployee from "./pages/editEmployee/EditEmployee.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import EditProfile from './pages/profile/EditProfile.jsx';
 import Contact from './pages/contact/Contact.jsx';
+import DocumentDetail from "./components/document/documentDetail/DocumentDetail.jsx";
+import AddDocument from "./pages/addDocument/AddDocument.jsx";
+import DocumentCart from "./pages/documentCart/DocumentCart.jsx";
 
 axios.defaults.withCredentials = true;
 
@@ -103,6 +106,36 @@ function App() {
               <Sidebar>
                 <Layout>
                   <Contact />
+                </Layout>
+              </Sidebar>
+            }
+          />
+           <Route
+            path="/processes"
+            element={
+              <Sidebar>
+                <Layout>
+                  <DocumentCart />
+                </Layout>
+              </Sidebar>
+            }
+          />
+          <Route
+            path="/employee-detail/:employeeId/add-document"
+            element={
+              <Sidebar>
+                <Layout>
+                  <AddDocument />
+                </Layout>
+              </Sidebar>
+            }
+          />
+          <Route
+            path="/employee-detail/:employeeId/document-detail/:documentId"
+            element={
+              <Sidebar>
+                <Layout>
+                  <DocumentDetail />
                 </Layout>
               </Sidebar>
             }

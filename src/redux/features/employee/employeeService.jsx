@@ -1,4 +1,5 @@
 import axios from 'axios';
+import fileDownload from 'js-file-download';
 
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -50,8 +51,8 @@ export const getDocuments = async (employeeId) => {
   };
   
   // Update a document of an employee
-  export const updateDocument = async (employeeId, documentId, formData) => {
-    const response = await axios.put(`${API_URL}${employeeId}/documents/${documentId}`, formData);
+  export const updateDocument = async (employeeId, documentId, documentData) => {
+    const response = await axios.put(`${API_URL}${employeeId}/documents/${documentId}`, documentData);
     return response.data;
   };
   
@@ -60,6 +61,22 @@ export const getDocuments = async (employeeId) => {
     const response = await axios.delete(`${API_URL}${employeeId}/documents/${documentId}`);
     return response.data;
   };
+
+  // Create a document of an employee
+  export const addDocument = async (employeeId, documentData) => {
+    try {
+      const response = await axios.post(`${API_URL}${employeeId}/documents`, documentData);
+      return response.data;
+    } catch (error) {
+      throw new Error(`Error al agregar el documento: ${error.message}`);
+    }
+  };
+
+  // Download a document of an employee
+export const downloadDocument = async (employeeId, documentId) => {
+  const response = await axios.get(`${API_URL}${employeeId}/documents/${documentId}/download`);
+  return response.data;
+};
 
 const employeeService = { 
     createEmployee, 
@@ -71,6 +88,8 @@ const employeeService = {
     getDocument,
     updateDocument,
     deleteDocument,
+    addDocument,
+    downloadDocument 
 };
 
 export default employeeService;

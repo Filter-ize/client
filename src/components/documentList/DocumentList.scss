@@ -5,6 +5,23 @@
         width: 100%;
         overflow: auto;
 
+        .agregar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+
+            button{
+                
+                margin: 2rem 1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+  
+                cursor: pointer;
+            }
+        }
+
         .search {
             width: 100%;
             max-width: 350px;

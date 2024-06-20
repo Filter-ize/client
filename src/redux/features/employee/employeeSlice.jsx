@@ -11,7 +11,7 @@ const initialState = {
   message: "",
   professions: [],
   specializations: [],
-  documents:[]
+  documents: [],
 };
 
 //Create new employee
@@ -154,7 +154,11 @@ export const updateDocument = createAsyncThunk(
   "employee/updateDocument",
   async ({ employeeId, documentId, formData }, thunkAPI) => {
     try {
-      return await employeeService.updateDocument(employeeId, documentId, formData);
+      return await employeeService.updateDocument(
+        employeeId,
+        documentId,
+        formData
+      );
     } catch (error) {
       const message =
         (error.response &&
@@ -185,6 +189,22 @@ export const deleteDocument = createAsyncThunk(
   }
 );
 
+export const addDocument = createAsyncThunk(
+  'employee/createDocument',
+  async ({ employeeId, formData }, thunkAPI) => {
+    try {
+      return await employeeService.addDocument(employeeId, formData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const employeeSlice = createSlice({
   name: "employee",
@@ -310,10 +330,11 @@ const employeeSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         // Actualizar documento de employee correctamente
-        state.employee = {
-          ...state.employee,
-          document: action.payload
-        };
+        // state.employee = {
+        //   ...state.employee,
+        //   document: action.payload
+        // };
+        state.currentDocument = action.payload;
       })
       .addCase(getDocument.rejected, (state, action) => {
         state.isLoading = false;
@@ -333,9 +354,9 @@ const employeeSlice = createSlice({
         // Actualizar documentos de employee correctamente
         state.employee = {
           ...state.employee,
-          documents: state.employee.documents.map(doc => 
+          documents: state.employee.documents.map((doc) =>
             doc.id === action.payload.id ? action.payload : doc
-          )
+          ),
         };
       })
       .addCase(updateDocument.rejected, (state, action) => {
@@ -356,12 +377,26 @@ const employeeSlice = createSlice({
         // Eliminar documento de employee correctamente
         state.employee = {
           ...state.employee,
-          documents: state.employee.documents.filter(doc =>
-            doc.id !== action.payload.id
-          )
+          documents: state.employee.documents.filter(
+            (doc) => doc.id !== action.payload.id
+          ),
         };
       })
       .addCase(deleteDocument.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+      .addCase(addDocument.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addDocument.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.documents = action.payload.documents; // Actualizar documents con la respuesta del backend
+      })
+      .addCase(addDocument.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -378,5 +413,8 @@ export const selectEmployees = (state) => state.employee.employees;
 export const selectProfessions = (state) => state.employee.professions;
 export const selectSpecializations = (state) => state.employee.specializations;
 export const selectDocuments = (state) => state.employee.documents;
+export const selectDocument = (state, documentId) =>
+  state.employee.documents.find((doc) => doc.id === documentId);
+export const selectCurrentDocument = (state) => state.employee.currentDocument;
 
 export default employeeSlice.reducer;

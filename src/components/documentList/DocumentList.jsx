@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../../components/loader/Loader.jsx";
 import "./DocumentList.scss";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt, FaDownload, FaPlus } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import Search from "../../components/search/Search.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,8 +15,11 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import {
   deleteDocument,
   getDocuments,
+  getEmployee,
 } from "../../redux/features/employee/employeeSlice.jsx";
 import { Link } from "react-router-dom";
+import { downloadDocument } from "../../redux/features/employee/employeeService.jsx";
+import { createCart } from "../../redux/features/documents/documentCartService.jsx";
 
 const DocumentList = ({ employeeId }) => {
   const [search, setSearch] = useState("");
@@ -60,6 +63,10 @@ const DocumentList = ({ employeeId }) => {
   const isLoading = useSelector((state) => state.employee.isLoading); // Estado de carga
 
   useEffect(() => {
+    dispatch(getEmployee(employeeId));
+  }, [dispatch, employeeId]);
+
+  useEffect(() => {
     if (employee && employee.documents) {
       const endOffset = itemOffset + itemsPerPage;
       setCurrentItems(employee.documents.slice(itemOffset, endOffset));
@@ -90,6 +97,40 @@ const DocumentList = ({ employeeId }) => {
     return <Loader />;
   }
 
+  //download on work :c
+  const handleDownload = async (documentId) => {
+    try {
+      const url = await downloadDocument(employeeId, documentId);
+      console.log(url);
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.setAttribute("download", "image");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error downloading the file.", error);
+    }
+  };
+
+  //add to cart
+  const handleAddToCart = async (documentId) => {
+    try {
+      const cartData = {
+        documentPairs: [
+          {
+            employeeId,
+            documentId,
+          },
+        ],
+      };
+      await createCart(cartData);
+      alert('Documento agregado al carrito exitosamente');
+    } catch (error) {
+      console.error("Error al agregar el documento al carrito.", error);
+    }
+  };
+
   return (
     <div className="document-list">
       <hr />
@@ -98,11 +139,14 @@ const DocumentList = ({ employeeId }) => {
           <span>
             <h3>Documentos</h3>
           </span>
-          <span>
+          <span className="agregar">
             <Search
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
+            <Link to={`/employee-detail/${employeeId}/add-document`}>
+              <button className="--btn --btn-primary">Agregar Documento</button>
+            </Link>
           </span>
         </div>
 
@@ -120,7 +164,7 @@ const DocumentList = ({ employeeId }) => {
                   <th>Especialidad</th>
                   <th>Fecha de Inicio</th>
                   <th>Fecha de Fin</th>
-                  <th>Tiempo Total</th>
+                  <th>Tiempo Total (días)</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
@@ -136,7 +180,9 @@ const DocumentList = ({ employeeId }) => {
                     <td>{document.totalTime}</td>
                     <td className="icons">
                       <span>
-                        <Link to={`/document-detail/${document._id}`}>
+                        <Link
+                          to={`/employee-detail/${employeeId}/document-detail/${document._id}`}
+                        >
                           <AiOutlineEye size={25} color={"#2179BD"} />
                         </Link>
                       </span>
@@ -152,6 +198,20 @@ const DocumentList = ({ employeeId }) => {
                           onClick={() => {
                             confirmDelete(document._id);
                           }}
+                        />
+                      </span>
+                      <span>
+                        <FaDownload
+                          size={20}
+                          color={"#3f3f3f"}
+                          onClick={() => handleDownload(document._id)}
+                        />
+                      </span>
+                      <span>
+                        <FaPlus
+                          size={20}
+                          color={"#3f3f3f"}
+                          onClick={() => handleAddToCart(document._id)}
                         />
                       </span>
                     </td>
