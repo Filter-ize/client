@@ -52,7 +52,7 @@ const DocumentCartDetailsDialog = ({ cart, onClose }) => {
           <p>Entidad: {cart.location}</p>
           <p>Tipo: {cart.type}</p>
           <p>Duración: {cart.duration}</p>
-          <p>Alcanzado: {documentTotalTime(cart.reached)}</p>
+          <p>Alcanzado: {formatTotalTime(cart.reached)}</p>
           <hr />
           {cart.documents?.length === 0 ? (
             <p>No hay documentos en este proceso.</p>
