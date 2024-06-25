@@ -74,13 +74,14 @@
             // tr:nth-child(even){
                 //     background-color: #fff;
                 // }
+
                 tbody{
                     color: var(--color-background2);
                     tr:hover {
-                        color: var(--color-white) ;
                         cursor: pointer;
-                        background-color: var(--color-background);
+                        background-color: var(--color-white2);
                 }
+                
             }
         }
     }    

@@ -10,6 +10,12 @@ export const createCart = async (formData) => {
     return response.data;
 };
 
+// Add documents to a cart
+export const addDocumentsToCart = async (id, formData) => {
+    const response = await axios.put(API_URL + id + '/add', formData);
+    return response.data;
+};
+
 // Get all carts
 export const getAllCarts = async () => {
     const response = await axios.get(API_URL);
@@ -34,12 +40,20 @@ export const deleteCart = async (id) => {
     return response.data;
 };
 
+// Remove a document from a cart
+export const removeDocumentFromCart = async (id, formData) => {
+    const response = await axios.put(API_URL + id + '/remove', formData);
+    return response.data;
+};
+
 const documentCartService = { 
     createCart, 
+    addDocumentsToCart,
     getAllCarts, 
     getCart, 
     updateCart, 
-    deleteCart
+    deleteCart,
+    removeDocumentFromCart
 };
 
 export default documentCartService;

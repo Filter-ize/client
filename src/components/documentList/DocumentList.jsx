@@ -19,10 +19,12 @@ import {
 } from "../../redux/features/employee/employeeSlice.jsx";
 import { Link } from "react-router-dom";
 import { downloadDocument } from "../../redux/features/employee/employeeService.jsx";
-import { createCart } from "../../redux/features/documents/documentCartService.jsx";
+import DocumentCartListDialog from "../document/documentCartListDialog/DocumentCartListDialog.jsx";
 
 const DocumentList = ({ employeeId }) => {
   const [search, setSearch] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Estado para controlar si el diálogo está abierto o cerrado
+  const [selectedDocument, setSelectedDocument] = useState(null);
   const filteredDocuments = useSelector(selectFilteredDocuments);
 
   const dispatch = useDispatch();
@@ -113,21 +115,27 @@ const DocumentList = ({ employeeId }) => {
     }
   };
 
-  //add to cart
-  const handleAddToCart = async (documentId) => {
-    try {
-      const cartData = {
-        documentPairs: [
-          {
-            employeeId,
-            documentId,
-          },
-        ],
-      };
-      await createCart(cartData);
-      alert('Documento agregado al carrito exitosamente');
-    } catch (error) {
-      console.error("Error al agregar el documento al carrito.", error);
+  const handlePlusClick = (document) => {
+    setSelectedDocument(document); // Almacena el documento seleccionado
+    setIsDialogOpen(true); // Abre el diálogo
+  };
+
+  const handleCloseDialog = () => {
+    setSelectedDocument(null); // Limpia el documento seleccionado
+    setIsDialogOpen(false); // Cierra el diálogo
+  };
+  const formatTotalTime = (totalDays) => {
+    if (totalDays < 30) {
+      return `${totalDays} días`;
+    } else if (totalDays < 365) {
+      const months = Math.floor(totalDays / 30);
+      const days = totalDays % 30;
+      return `${months} meses ${days} días`;
+    } else {
+      const years = Math.floor(totalDays / 365);
+      const months = Math.floor((totalDays % 365) / 30);
+      const days = totalDays % 30;
+      return `${years} años ${months} meses ${days} días`;
     }
   };
 
@@ -164,7 +172,7 @@ const DocumentList = ({ employeeId }) => {
                   <th>Especialidad</th>
                   <th>Fecha de Inicio</th>
                   <th>Fecha de Fin</th>
-                  <th>Tiempo Total (días)</th>
+                  <th>Tiempo Total</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
@@ -177,7 +185,7 @@ const DocumentList = ({ employeeId }) => {
                     <td>{document.specialty}</td>
                     <td>{new Date(document.startDate).toLocaleDateString()}</td>
                     <td>{new Date(document.endDate).toLocaleDateString()}</td>
-                    <td>{document.totalTime}</td>
+                    <td>{formatTotalTime(document.totalTime)}</td>
                     <td className="icons">
                       {/* <span>
                         <Link
@@ -211,7 +219,7 @@ const DocumentList = ({ employeeId }) => {
                         <FaPlus
                           size={20}
                           color={"#3f3f3f"}
-                          onClick={() => handleAddToCart(document._id)}
+                          onClick={() => handlePlusClick(document)}
                         />
                       </span>
                     </td>
@@ -234,6 +242,13 @@ const DocumentList = ({ employeeId }) => {
           nextLinkClassName="page-num"
           activeLinkClassName="activePage"
         />
+        {isDialogOpen && (
+          <DocumentCartListDialog
+            document={selectedDocument}
+            onClose={handleCloseDialog}
+            employeeData={employee}
+          />
+        )}
       </div>
     </div>
   );
