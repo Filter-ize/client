@@ -41,6 +41,17 @@ const DocumentCartList = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      setIsLoading(true);
+      await deleteCart(id);
+      setIsLoading(true);
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+    }
+  };
+
   const formatTotalTime = (totalDays) => {
     if (totalDays < 30) {
       return `${totalDays} días`;
@@ -64,7 +75,7 @@ const DocumentCartList = () => {
     <div className="document-list">
       <hr />
       <div className="table">
-        <h3>Proceso</h3>
+        <h3>Procesos</h3>
         {carts?.length === 0 ? (
           <p>No existen procesos</p>
         ) : (

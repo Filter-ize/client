@@ -25,6 +25,7 @@ const DocumentList = ({ employeeId }) => {
   const [search, setSearch] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Estado para controlar si el diálogo está abierto o cerrado
   const [selectedDocument, setSelectedDocument] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
   const filteredDocuments = useSelector(selectFilteredDocuments);
 
   const dispatch = useDispatch();
@@ -36,9 +37,12 @@ const DocumentList = ({ employeeId }) => {
     return text;
   };
 
-  const delDocument = async (documentId) => {
-    await dispatch(deleteDocument({ employeeId, documentId }));
-    await dispatch(getDocuments(employeeId));
+  const delDocument = (documentId) => {
+    dispatch(deleteDocument({ employeeId, documentId }))
+      .then(() => {
+        dispatch(getDocuments(employeeId));
+        setRefreshKey(oldKey => oldKey + 1); // Agrega esta línea
+      });
   };
 
   const confirmDelete = (documentId) => {
@@ -66,7 +70,7 @@ const DocumentList = ({ employeeId }) => {
 
   useEffect(() => {
     dispatch(getEmployee(employeeId));
-  }, [dispatch, employeeId]);
+  }, [dispatch, employeeId, refreshKey]);
 
   useEffect(() => {
     if (employee && employee.documents) {
@@ -74,7 +78,7 @@ const DocumentList = ({ employeeId }) => {
       setCurrentItems(employee.documents.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(employee.documents.length / itemsPerPage));
     }
-  }, [employee, itemOffset, itemsPerPage]);
+  }, [employee, itemOffset, itemsPerPage, isLoading]);
 
   const handlePageClick = (event) => {
     const newOffset = event.selected * itemsPerPage;
@@ -85,7 +89,7 @@ const DocumentList = ({ employeeId }) => {
     if (employee && employee.documents) {
       dispatch(FILTER_DOCUMENTS({ employee, search }));
     }
-  }, [employee, search, dispatch]);
+  }, [employee, search, dispatch, isLoading]);
 
   useEffect(() => {
     if (employee && employee.documents) {
@@ -106,7 +110,7 @@ const DocumentList = ({ employeeId }) => {
       const link = document.createElement("a");
       link.href = url;
       link.target = "_blank";
-      link.setAttribute("download", "image");
+      link.setAttribute("download");
       document.body.appendChild(link);
       link.click();
     } catch (error) {
@@ -209,7 +213,9 @@ const DocumentList = ({ employeeId }) => {
                         <FaDownload
                           size={20}
                           color={"#3f3f3f"}
-                          onClick={() => handleDownload(document._id, document.title)}
+                          onClick={() =>
+                            handleDownload(document._id, document.title)
+                          }
                         />
                       </span>
                       <span>

@@ -51,7 +51,7 @@ const DocumentCartDetailsDialog = ({ cart, onClose }) => {
       const link = document.createElement("a");
       link.href = url;
       link.target = "_blank";
-      link.setAttribute("download", "image");
+      link.setAttribute("download");
       document.body.appendChild(link);
       link.click();
     } catch (error) {}
