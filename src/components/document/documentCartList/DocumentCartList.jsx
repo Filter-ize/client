@@ -6,25 +6,24 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import DocumentCartDetailsDialog from "../documentCartDetailsDialog/DocumentCartDetailsDialog.jsx";
 
-const DocumentCartList = () => {
+const DocumentCartList = ({refreshKey}) => {
   const [carts, setCarts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCart, setSelectedCart] = useState(null);
 
+  const fetchCarts = async () => {
+    try {
+      const response = await getAllCarts();
+      setCarts(response);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error al obtener los carritos de documentos.", error);
+      setIsLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchCarts = async () => {
-      try {
-        const response = await getAllCarts();
-        setCarts(response);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error al obtener los carritos de documentos.", error);
-        setIsLoading(false);
-      }
-    };
-
     fetchCarts();
-  }, [isLoading]);
+  }, [isLoading, refreshKey]);
  
 
   const handleDownload = async (id) => {
@@ -41,10 +40,15 @@ const DocumentCartList = () => {
     }
   };
 
+  const handleRefreshKey = () => {
+    setRefreshKey(oldKey => oldKey + 1);
+  }
+
   const handleDelete = async (id) => {
     try {
       setIsLoading(true);
       await deleteCart(id);
+      setRefreshKey(oldKey => oldKey + 1); 
       setIsLoading(true);
     } catch (error) {
       console.error(error);
@@ -124,7 +128,6 @@ const DocumentCartList = () => {
         <DocumentCartDetailsDialog
           cart={selectedCart}
           onClose={() => setSelectedCart(null)}
-          isLoading={isLoading}
         />
       )}
     </div>
