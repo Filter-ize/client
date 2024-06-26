@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllCarts, deleteCart } from "../../../redux/features/documents/documentCartService.jsx";
+import { getAllCarts, deleteCart, downloadCartDocuments } from "../../../redux/features/documents/documentCartService.jsx";
 import Loader from "../../loader/Loader.jsx";
 import { AiOutlineEye } from "react-icons/ai";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
@@ -17,7 +17,6 @@ const DocumentCartList = () => {
         const response = await getAllCarts();
         setCarts(response);
         setIsLoading(false);
-        console.log(response);
       } catch (error) {
         console.error("Error al obtener los carritos de documentos.", error);
         setIsLoading(false);
@@ -26,14 +25,19 @@ const DocumentCartList = () => {
 
     fetchCarts();
   }, [isLoading]);
+ 
 
-  const handleDelete = async (id) => {
+  const handleDownload = async (id) => {
     try {
       setIsLoading(true);
-      await deleteCart(id);
-      setCarts(carts.filter((cart) => cart._id !== id));
+      const data = await downloadCartDocuments(cart._id);
+      console.log(data)
+      // Handle the downloaded data here
     } catch (error) {
-      console.error("Error al eliminar el carrito de documentos.", error);
+      console.error(error);
+      // Handle the error here
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -109,6 +113,7 @@ const DocumentCartList = () => {
         <DocumentCartDetailsDialog
           cart={selectedCart}
           onClose={() => setSelectedCart(null)}
+          isLoading={isLoading}
         />
       )}
     </div>

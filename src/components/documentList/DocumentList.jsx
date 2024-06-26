@@ -100,10 +100,9 @@ const DocumentList = ({ employeeId }) => {
   }
 
   //download on work :c
-  const handleDownload = async (documentId) => {
+  const handleDownload = async (documentId, title) => {
     try {
-      const url = await downloadDocument(employeeId, documentId);
-      console.log(url);
+      const url = await downloadDocument(employeeId, documentId, title);
       const link = document.createElement("a");
       link.href = url;
       link.target = "_blank";
@@ -200,26 +199,26 @@ const DocumentList = ({ employeeId }) => {
                         </Link>
                       </span> */}
                       <span>
+                        <FaPlus
+                          size={20}
+                          color={"#3f3f3f"}
+                          onClick={() => handlePlusClick(document)}
+                        />
+                      </span>
+                      <span>
+                        <FaDownload
+                          size={20}
+                          color={"#3f3f3f"}
+                          onClick={() => handleDownload(document._id, document.title)}
+                        />
+                      </span>
+                      <span>
                         <FaTrashAlt
                           size={20}
                           color={"#E87063"}
                           onClick={() => {
                             confirmDelete(document._id);
                           }}
-                        />
-                      </span>
-                      <span>
-                        <AiOutlineEye
-                          size={20}
-                          color={"#3f3f3f"}
-                          onClick={() => handleDownload(document._id)}
-                        />
-                      </span>
-                      <span>
-                        <FaPlus
-                          size={20}
-                          color={"#3f3f3f"}
-                          onClick={() => handlePlusClick(document)}
                         />
                       </span>
                     </td>

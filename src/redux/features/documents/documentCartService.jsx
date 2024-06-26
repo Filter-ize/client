@@ -46,6 +46,12 @@ export const removeDocumentFromCart = async (id, formData) => {
     return response.data;
 };
 
+// Download documents from a cart
+export const downloadCartDocuments = async (id) => {
+    const response = await axios.get(API_URL + id + '/download', {responseType: "blob"});
+    return response.data;
+};
+
 const documentCartService = { 
     createCart, 
     addDocumentsToCart,
@@ -53,7 +59,8 @@ const documentCartService = {
     getCart, 
     updateCart, 
     deleteCart,
-    removeDocumentFromCart
+    removeDocumentFromCart,
+    downloadCartDocuments
 };
 
 export default documentCartService;

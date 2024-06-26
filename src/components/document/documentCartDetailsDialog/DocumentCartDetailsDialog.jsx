@@ -3,11 +3,15 @@ import React from "react";
 import "./DocumentCartDetailsDialog.scss";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineEye } from "react-icons/ai";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { FaDownload, FaTrashAlt, FaFileArchive } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {
+  downloadCartDocuments,
+  removeDocumentFromCart,
+} from "../../../redux/features/documents/documentCartService";
+import { downloadDocument } from "../../../redux/features/employee/employeeService";
 
 const DocumentCartDetailsDialog = ({ cart, onClose }) => {
-
   const formatTotalTime = (totalDays) => {
     if (totalDays < 30) {
       return `${totalDays} días`;
@@ -22,9 +26,53 @@ const DocumentCartDetailsDialog = ({ cart, onClose }) => {
       return `${years} años ${months} meses ${days} días`;
     }
   };
+
+  const handleDownload = async () => {
+    try {
+      const response = await downloadCartDocuments(cart._id);
+      const url = window.URL.createObjectURL(
+        new Blob([response], { type: "application/zip" })
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "documents.zip");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error(error);
+    } finally {
+    }
+  };
+
+  const handleDownloadDocument = async (doc) => {
+    console.log(doc)
+    try {
+      const url = await downloadDocument(doc.employee, doc.document, doc.documentTitle);
+      const link = document.createElement("a");
+      link.href = url;
+      link.target = "_blank";
+      link.setAttribute("download", "image");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {}
+  };
+
+  const handleRemoveDocument = async (doc) => {
+    try {
+      await removeDocumentFromCart(cart._id, {
+        employeeId: doc.employee,
+        documentId: doc.document,
+      });
+      // Aquí puedes actualizar la lista de documentos en el carrito si es necesario
+    } catch (error) {
+      console.error(error);
+    } finally {
+    }
+  };
+
   return (
     <>
-      <div className="overlay" onClick={onClose}>
+      <div className="overlay">
         <div className="dialogo">
           <div
             style={{
@@ -58,7 +106,28 @@ const DocumentCartDetailsDialog = ({ cart, onClose }) => {
             <p>No hay documentos en este proceso.</p>
           ) : (
             <>
-              <h3>Documentos:</h3>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <h3>Documentos:</h3>
+                <button
+                  onClick={handleDownload}
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    width: "24px",
+                    fontSize: "24px",
+                    color: "var(--color-white)",
+                  }}
+                >
+                  <FaFileArchive />
+                </button>
+              </div>
               <div className="table">
                 <table>
                   <thead>
@@ -77,8 +146,12 @@ const DocumentCartDetailsDialog = ({ cart, onClose }) => {
                         <td>{formatTotalTime(doc.documentTotalTime)}</td>
                         <td className="icons">
                           <span>
-                            <Link to={doc.documentFileUrl} target="_blank" rel="noopener noreferrer">
-                              <AiOutlineEye size={25} color={"#2179BD"} onClick={(e) => e.stopPropagation()}/>
+                            <Link>
+                              <FaDownload
+                                size={25}
+                                color={"#2179BD"}
+                                onClick={(e) => handleDownloadDocument(doc)}
+                              />
                             </Link>
                           </span>
                           <span>
@@ -86,7 +159,7 @@ const DocumentCartDetailsDialog = ({ cart, onClose }) => {
                               <FaTrashAlt
                                 size={20}
                                 color={"#E87063"}
-                                onClick={() => {}}
+                                onClick={() => handleRemoveDocument(doc)}
                               />
                             </Link>
                           </span>

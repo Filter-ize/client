@@ -30,7 +30,6 @@ const DocumentCartListDialog = ({ document, onClose, employeeData }) => {
   // console.log("employee: ", employeeData._id);
 
   const handleAddToCart = async (cart) => {
-    console.log(cart);
     try {
       setIsLoading(true);
       const formData = {
@@ -38,9 +37,11 @@ const DocumentCartListDialog = ({ document, onClose, employeeData }) => {
         documentId: document._id,
         employeeName: employeeData.name, // Asegúrate de que estos campos existen en employeeData y document
         documentTitle: document.title,
-        documentFileUrl: document.fileUrl,
+        documentFile: document.file.buffer,
         documentTotalTime: document.totalTime,
       };
+      
+      console.log("formData: ", formData);
       await addDocumentsToCart(cart._id, formData);
       const response = await getAllCarts();
       setCarts(response);

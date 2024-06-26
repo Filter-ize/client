@@ -57,12 +57,12 @@ const DocumentForm = ({
               onChange={(e) => handleDocumentChange(e)}
             />
 
-            {document != null ? (
+            {document.file ? (
               <div className="document-preview">
-                <p>{document.title}</p>
+                <p>Archivo seleccionado: {document.file.name}</p>
               </div>
             ) : (
-              <p>No se ha subido ningún documento.</p>
+              <p>No se ha seleccionado ningún archivo.</p>
             )}
           </Card>
 
