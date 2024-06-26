@@ -6,10 +6,11 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import DocumentCartDetailsDialog from "../documentCartDetailsDialog/DocumentCartDetailsDialog.jsx";
 
-const DocumentCartList = ({refreshKey}) => {
+const DocumentCartList = () => {
   const [carts, setCarts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCart, setSelectedCart] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0); 
 
   const fetchCarts = async () => {
     try {
@@ -22,6 +23,7 @@ const DocumentCartList = ({refreshKey}) => {
     }
   };
   useEffect(() => {
+
     fetchCarts();
   }, [isLoading, refreshKey]);
  
